@@ -13,6 +13,7 @@
 		A560E90526CD73B30089B329 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A560E90426CD73B30089B329 /* Preview Assets.xcassets */; };
 		A560E91126CD73B30089B329 /* DontPushMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560E91026CD73B30089B329 /* DontPushMeTests.swift */; };
 		A560E91C26CD73B30089B329 /* DontPushMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560E91B26CD73B30089B329 /* DontPushMeUITests.swift */; };
+		A560E92B26CDD44D0089B329 /* PKCS12.swift in Sources */ = {isa = PBXBuildFile; fileRef = A560E92A26CDD44D0089B329 /* PKCS12.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		A560E91726CD73B30089B329 /* DontPushMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DontPushMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A560E91B26CD73B30089B329 /* DontPushMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontPushMeUITests.swift; sourceTree = "<group>"; };
 		A560E91D26CD73B30089B329 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A560E92A26CDD44D0089B329 /* PKCS12.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCS12.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		A560E8FC26CD73B10089B329 /* DontPushMe */ = {
 			isa = PBXGroup;
 			children = (
+				A560E92926CDD4370089B329 /* Model */,
 				A560E8FD26CD73B10089B329 /* DontPushMeApp.swift */,
 				A560E8FF26CD73B10089B329 /* ContentView.swift */,
 				A560E90126CD73B30089B329 /* Assets.xcassets */,
@@ -130,6 +133,14 @@
 				A560E91D26CD73B30089B329 /* Info.plist */,
 			);
 			path = DontPushMeUITests;
+			sourceTree = "<group>";
+		};
+		A560E92926CDD4370089B329 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A560E92A26CDD44D0089B329 /* PKCS12.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A560E90026CD73B10089B329 /* ContentView.swift in Sources */,
+				A560E92B26CDD44D0089B329 /* PKCS12.swift in Sources */,
 				A560E8FE26CD73B10089B329 /* DontPushMeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
