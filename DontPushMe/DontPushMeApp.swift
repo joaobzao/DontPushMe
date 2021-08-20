@@ -6,14 +6,23 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct DontPushMeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .frame(width: 600, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .colorScheme(.dark)
+            ContentView(store: Store(
+                            initialState: DontPushMeState(),
+                            reducer: callReducer.debug(),
+                            environment: DontPushMeEnvironment(
+                                networkClient: NetworkClient.pushNotification,
+                                mainQueue: .main
+                            )
+                )
+            )
+            .frame(width: 600, height: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .colorScheme(.dark)
         }
     }
 }
