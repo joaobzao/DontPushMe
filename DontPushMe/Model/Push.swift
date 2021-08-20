@@ -13,4 +13,5 @@ struct Push: Request {
     let topicId: String
     let priority: String = "10"
     let password: String
+    let payload: String
 }

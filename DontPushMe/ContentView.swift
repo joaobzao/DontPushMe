@@ -49,25 +49,33 @@ let callReducer = Reducer<DontPushMeState, DontPushMeAction, DontPushMeEnvironme
 struct ContentView: View {
     let store: Store<DontPushMeState, DontPushMeAction>
 
+    @State var payload: String = ""
+    @State var apnsToken: String = ""
+    @State var fileUrl: URL? = nil
+    @State var topicId: String = ""
+    @State var priority: String = "10"
+    @State var password: String = ""
+
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            Button(
-                action: {
-                    viewStore.send(
-                        .sendPushNotification(
-                            Push(
-                                apnsToken: "fab91e6ce1afb50ab85d4b50da1d416601791c5c4cae8d1b7b0c65aa866481fd",
-                                fileUrl: URL(fileURLWithPath: "/Users/zaoj/Desktop/Certificates.p12"),
-                                topicId: "com.paddypower.sportsbook.u.inhouse.wrapper",
-                                password: "PaddyPower2022!")
-                        )
-                    )
-                },
-                label: {
-                    Text("Call me maybe!")
-                }
-            )
+            Button(action: {
+                    viewStore.send(.sendPushNotification(Push(apnsToken: apnsToken,
+                                                              fileUrl: fileUrl,
+                                                              topicId: topicId,
+                                                              password: password,
+                                                              payload: payload)))},
+                   label: { Text("Call me maybe!") })
         }
+    }
+}
+
+extension ContentView: SSLModuleDelegate {
+    var push: Push {
+        Push(apnsToken: apnsToken,
+             fileUrl: fileUrl,
+             topicId: topicId,
+             password: password,
+             payload: payload)
     }
 }
 
