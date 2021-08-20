@@ -14,7 +14,7 @@ struct DontPushMeState: Equatable {
 }
 
 enum DontPushMeAction: Equatable {
-    case sendPushNotification
+    case sendPushNotification(Push)
     case showPushResult(Result<String, RequestError>)
 }
 
@@ -28,14 +28,20 @@ struct DontPushMeEnvironment {
 let callReducer = Reducer<DontPushMeState, DontPushMeAction, DontPushMeEnvironment> {
     state, action, environment in
     switch action {
-    case .sendPushNotification:
+    case let .sendPushNotification(push):
         return environment
             .networkClient
-            .performRequest(Request(apnsToken: "", fileUrl: nil, topicId: "", priority: "", password: ""))
+            .performRequest(push)
             .receive(on: environment.mainQueue)
             .catchToEffect()
             .map(DontPushMeAction.showPushResult)
-    case .showPushResult:
+    case let .showPushResult(result):
+        switch result {
+        case let .success(result):
+            print(result)
+        case let .failure(error):
+            print(error)
+        }
         return .none
     }
 }
@@ -45,9 +51,22 @@ struct ContentView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            Button(action: { viewStore.send(.sendPushNotification) }, label: {
-                Text("Call me maybe!")
-            })
+            Button(
+                action: {
+                    viewStore.send(
+                        .sendPushNotification(
+                            Push(
+                                apnsToken: "yooo",
+                                fileUrl: nil,
+                                topicId: "",
+                                password: "")
+                        )
+                    )
+                },
+                label: {
+                    Text("Call me maybe!")
+                }
+            )
         }
     }
 }

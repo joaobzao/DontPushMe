@@ -8,26 +8,20 @@
 import Foundation
 import ComposableArchitecture
 
-struct Request: Hashable {
-    var apnsToken: String
-    var fileUrl: URL?
-    var topicId: String
-    var priority: String
-    var password: String
-}
+protocol Request: Hashable {}
 
 enum RequestError: Error, Equatable {
     case failure(String)
 }
 
 struct NetworkClient {
-    var performRequest: (Request) -> Effect<String, RequestError>
+    var performRequest: (Push) -> Effect<String, RequestError>
 }
 
 // MARK: - API implementation
 
 extension NetworkClient {
     static let pushNotification = NetworkClient { request in
-        return Effect(value: "sada")
+        return Effect(value: request.apnsToken)
     }
 }
