@@ -56,10 +56,10 @@ struct ContentView: View {
                     viewStore.send(
                         .sendPushNotification(
                             Push(
-                                apnsToken: "yooo",
-                                fileUrl: nil,
-                                topicId: "",
-                                password: "")
+                                apnsToken: "fab91e6ce1afb50ab85d4b50da1d416601791c5c4cae8d1b7b0c65aa866481fd",
+                                fileUrl: URL(fileURLWithPath: "/Users/zaoj/Desktop/Certificates.p12"),
+                                topicId: "com.paddypower.sportsbook.u.inhouse.wrapper",
+                                password: "PaddyPower2022!")
                         )
                     )
                 },
