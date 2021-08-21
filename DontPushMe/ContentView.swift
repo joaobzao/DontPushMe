@@ -10,12 +10,12 @@ import Foundation
 import ComposableArchitecture
 
 struct DontPushMeState: Equatable {
-    var pushesSent: [String] = []
+    var pushesSent: [HTTPURLResponse] = []
 }
 
 enum DontPushMeAction: Equatable {
     case sendPushNotification(Push, SSLModule)
-    case showPushResult(Result<String, RequestError>)
+    case showPushResult(Result<HTTPURLResponse, RequestError>)
 }
 
 struct DontPushMeEnvironment {
@@ -38,7 +38,8 @@ let callReducer = Reducer<DontPushMeState, DontPushMeAction, DontPushMeEnvironme
     case let .showPushResult(result):
         switch result {
         case let .success(result):
-            print(result)
+            state.pushesSent.append(result)
+            print(state.pushesSent)
         case let .failure(error):
             print(error)
         }
@@ -141,7 +142,7 @@ extension ContentView: SSLModuleDelegate {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(store: Store(initialState: DontPushMeState(), reducer: callReducer, environment: DontPushMeEnvironment(networkClient: NetworkClient(performRequest: { request, sslModule  in
-            Effect(value: "dummy")
+            Effect(value: HTTPURLResponse())
         }), mainQueue: .main)))
     }
 }
