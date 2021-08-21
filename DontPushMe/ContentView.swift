@@ -14,7 +14,7 @@ struct DontPushMeState: Equatable {
 }
 
 enum DontPushMeAction: Equatable {
-    case sendPushNotification(Push)
+    case sendPushNotification(Push, SSLModule)
     case showPushResult(Result<String, RequestError>)
 }
 
@@ -28,10 +28,10 @@ struct DontPushMeEnvironment {
 let callReducer = Reducer<DontPushMeState, DontPushMeAction, DontPushMeEnvironment> {
     state, action, environment in
     switch action {
-    case let .sendPushNotification(push):
+    case let .sendPushNotification(push, sslModule):
         return environment
             .networkClient
-            .performRequest(push)
+            .performRequest(push, sslModule)
             .receive(on: environment.mainQueue)
             .catchToEffect()
             .map(DontPushMeAction.showPushResult)
@@ -48,6 +48,7 @@ let callReducer = Reducer<DontPushMeState, DontPushMeAction, DontPushMeEnvironme
 
 struct ContentView: View {
     let store: Store<DontPushMeState, DontPushMeAction>
+    let sslModule = SSLModule()
 
     @State var payload: String = ""
     @State var apnsToken: String = ""
@@ -59,11 +60,13 @@ struct ContentView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             Button(action: {
+                    sslModule.delegate = self
                     viewStore.send(.sendPushNotification(Push(apnsToken: apnsToken,
                                                               fileUrl: fileUrl,
                                                               topicId: topicId,
                                                               password: password,
-                                                              payload: payload)))},
+                                                              payload: payload),
+                                                         sslModule))},
                    label: { Text("Call me maybe!") })
         }
     }
@@ -81,8 +84,14 @@ extension ContentView: SSLModuleDelegate {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(store: Store(initialState: DontPushMeState(), reducer: callReducer, environment: DontPushMeEnvironment(networkClient: NetworkClient(performRequest: { request in
+        ContentView(store: Store(initialState: DontPushMeState(), reducer: callReducer, environment: DontPushMeEnvironment(networkClient: NetworkClient(performRequest: { request, sslModule  in
             Effect(value: "dummy")
         }), mainQueue: .main)))
+    }
+}
+
+extension ContentView_Previews: SSLModuleDelegate {
+    var push: Push {
+        Push(apnsToken: "", fileUrl: nil, topicId: "", password: "", payload: "")
     }
 }

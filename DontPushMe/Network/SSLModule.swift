@@ -9,11 +9,7 @@ import Foundation
 
 final class SSLModule: NSObject, URLSessionDelegate {
 
-    let delegate: SSLModuleDelegate?
-
-    init(delegate: SSLModuleDelegate?) {
-        self.delegate = delegate
-    }
+    var delegate: SSLModuleDelegate?
 
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         // `NSURLAuthenticationMethodClientCertificate`
