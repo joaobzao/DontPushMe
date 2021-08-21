@@ -59,16 +59,72 @@ struct ContentView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            Button(action: {
-                    sslModule.delegate = self
-                    viewStore.send(.sendPushNotification(Push(apnsToken: apnsToken,
-                                                              fileUrl: fileUrl,
-                                                              topicId: topicId,
-                                                              password: password,
-                                                              payload: payload),
-                                                         sslModule))},
-                   label: { Text("Call me maybe!") })
+            VStack(alignment: .leading) {
+                HStack {
+                    Image("pick-file").onTapGesture {
+                        let panel = NSOpenPanel()
+                        panel.allowedFileTypes = ["p12"]
+                        panel.allowsMultipleSelection = false
+                        panel.canChooseDirectories = false
+                        panel.canChooseFiles = true
+                        fileUrl = panel.runModal() == .OK ? panel.url : nil
+                    }
+
+                    Spacer()
+
+                    VStack(alignment: .trailing, spacing: nil) {
+                        TextField("Topic ID", text: $topicId)
+                            .font(.body)
+                        TextField("Priority", text: $priority)
+                            .font(.body)
+                        SecureField("Certificate Password", text: $password)
+                            .font(.body)
+                    }
+                    .padding(.trailing, 8)
+                    .frame(width: 200, height: nil, alignment: .center)
+                }
+
+                Text((self.fileUrl == nil ? "No Cert Selected" : self.fileUrl?.lastPathComponent) ?? "")
+                    .font(.body)
+                    .padding(.leading, 8)
+                    .padding(.bottom, 16)
+
+                Text("Your APNs Token")
+                    .font(.title)
+                    .padding(.leading, 8)
+
+
+                TextField("Debug Token", text: $apnsToken)
+                    .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, 4)
+                    .cornerRadius(4)
+                    .padding(.bottom, 16)
+                    .font(.body)
+
+                Text("Payload")
+                    .font(.title)
+                    .padding(.leading, 8)
+
+                TextField("Payload", text: $payload)
+                    .lineLimit(nil)
+                    .frame(minWidth: 50, idealWidth: 100, maxWidth: .infinity, minHeight: 20, idealHeight: 80, maxHeight: .infinity, alignment: .center)
+
+
+                HStack {
+                    Spacer()
+                    Button(action: {
+                            sslModule.delegate = self
+                            viewStore.send(.sendPushNotification(Push(apnsToken: apnsToken,
+                                                                      fileUrl: fileUrl,
+                                                                      topicId: topicId,
+                                                                      password: password,
+                                                                      payload: payload),
+                                                                 sslModule))},
+                           label: { Text("Call me maybe!") })
+                }
+                .padding()
+            }
         }
+
     }
 }
 
