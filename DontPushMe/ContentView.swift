@@ -73,7 +73,7 @@ struct ContentView: View {
 
                     Spacer()
 
-                    VStack(alignment: .trailing, spacing: nil) {
+                    VStack(alignment: .trailing) {
                         TextField("Topic ID", text: $topicId)
                             .font(.body)
                         TextField("Priority", text: $priority)
@@ -82,10 +82,10 @@ struct ContentView: View {
                             .font(.body)
                     }
                     .padding(.trailing, 8)
-                    .frame(width: 200, height: nil, alignment: .center)
+                    .frame(width: 200, alignment: .center)
                 }
 
-                Text((self.fileUrl == nil ? "No Cert Selected" : self.fileUrl?.lastPathComponent) ?? "")
+                Text((self.fileUrl == nil ? "No Cert Selected ⚠️" : self.fileUrl?.lastPathComponent) ?? "")
                     .font(.body)
                     .padding(.leading, 8)
                     .padding(.bottom, 16)
