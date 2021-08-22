@@ -106,10 +106,10 @@
 		A560E8FC26CD73B10089B329 /* DontPushMe */ = {
 			isa = PBXGroup;
 			children = (
+				A560E93A26D30C910089B329 /* View */,
 				A560E93226D01B180089B329 /* Network */,
 				A560E92926CDD4370089B329 /* Model */,
 				A560E8FD26CD73B10089B329 /* DontPushMeApp.swift */,
-				A560E8FF26CD73B10089B329 /* ContentView.swift */,
 				A560E90126CD73B30089B329 /* Assets.xcassets */,
 				A560E90626CD73B30089B329 /* Info.plist */,
 				A560E90726CD73B30089B329 /* DontPushMe.entitlements */,
@@ -160,6 +160,14 @@
 				A560E93726D06AB40089B329 /* SSLModule.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		A560E93A26D30C910089B329 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A560E8FF26CD73B10089B329 /* ContentView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
