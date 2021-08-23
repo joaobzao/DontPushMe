@@ -73,8 +73,6 @@ struct ContentView: View {
 
                     Spacer()
 
-
-
                     VStack(alignment: .trailing) {
                         TextField("Topic ID", text: $topicId)
                             .font(.body)
@@ -84,7 +82,7 @@ struct ContentView: View {
                             .font(.body)
                     }
                     .padding(.trailing, 8)
-                    .frame(width: 200, alignment: .center)
+                    .frame(width: 400, alignment: .center)
                 }
 
                 Text((self.fileUrl == nil ? "No Cert Selected ⚠️" : "\(self.fileUrl?.lastPathComponent ?? "❌") ✅") )
@@ -111,6 +109,16 @@ struct ContentView: View {
 
                 HStack {
                     Spacer()
+                    Button {
+                        apnsToken = Push.default.apnsToken
+                        topicId = Push.default.topicId
+                        fileUrl = Push.default.fileUrl
+                        password = Push.default.password
+                        payload = Push.default.payload
+                    } label: {
+                        Text("Use preset values")
+                    }
+
                     Button(action: {
                             sslModule.delegate = self
                             viewStore.send(.sendPushNotification(Push(apnsToken: apnsToken,
