@@ -73,6 +73,8 @@ struct ContentView: View {
 
                     Spacer()
 
+
+
                     VStack(alignment: .trailing) {
                         TextField("Topic ID", text: $topicId)
                             .font(.body)
@@ -85,7 +87,7 @@ struct ContentView: View {
                     .frame(width: 200, alignment: .center)
                 }
 
-                Text((self.fileUrl == nil ? "No Cert Selected ⚠️" : self.fileUrl?.lastPathComponent) ?? "")
+                Text((self.fileUrl == nil ? "No Cert Selected ⚠️" : "\(self.fileUrl?.lastPathComponent ?? "❌") ✅") )
                     .font(.body)
                     .padding(.leading, 8)
                     .padding(.bottom, 16)
@@ -105,10 +107,7 @@ struct ContentView: View {
                     .font(.title)
                     .padding(.leading, 8)
 
-                TextField("Payload", text: $payload)
-                    .lineLimit(nil)
-                    .frame(minWidth: 50, idealWidth: 100, maxWidth: .infinity, minHeight: 20, idealHeight: 80, maxHeight: .infinity, alignment: .center)
-
+                TextEditor(text: $payload)
 
                 HStack {
                     Spacer()
