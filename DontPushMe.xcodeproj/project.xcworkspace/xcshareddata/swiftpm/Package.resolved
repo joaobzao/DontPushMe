@@ -33,8 +33,17 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture.git",
         "state": {
           "branch": null,
-          "revision": "96cdc7e38e2d1d89b95b0ad80c914eb369476c4b",
-          "version": "0.24.0"
+          "revision": "a1aac6cfd654051d0ab5e626462afff36c399219",
+          "version": "0.27.1"
+        }
+      },
+      {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
+        "state": {
+          "branch": null,
+          "revision": "1a2947d25d43e295c6f5e83f54696d590620b364",
+          "version": "0.1.3"
         }
       },
       {
