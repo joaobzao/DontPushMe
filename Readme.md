@@ -23,4 +23,5 @@ https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_
 
 ## Note
 
-It is working but still work in progress
+Attention please, just dumped some quick and dirty code..
+I just made it public because some fellas asked me to access the tool.. It is working but needs a lot of care.
